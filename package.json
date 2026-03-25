@@ -8,7 +8,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jamesoh0813/KoreanIMEforClaudeCodeCLI.git"
+    "url": "https://github.com/dhwjdfuf/KoreanIMEforClaudeCodeCLI.git"
   },
   "engines": {
     "vscode": "^1.85.0"
