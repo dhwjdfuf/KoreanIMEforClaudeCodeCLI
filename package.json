@@ -1,0 +1,85 @@
+{
+  "name": "korean-ime-terminal",
+  "displayName": "Korean IME for Claude",
+  "description": "Fixes Korean IME input issues in VSCode/Cursor terminal when using Claude Code CLI.",
+  "version": "0.2.0",
+  "publisher": "jamesoh",
+  "icon": "icon.png",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "korean",
+    "ime",
+    "terminal",
+    "한글",
+    "입력",
+    "claude"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "korean-ime-panel",
+          "title": "Korean IME",
+          "icon": "$(keyboard)"
+        }
+      ]
+    },
+    "views": {
+      "korean-ime-panel": [
+        {
+          "type": "webview",
+          "id": "koreanIme.inputView",
+          "name": "Input"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "koreanIme.focusInput",
+        "title": "Korean IME: 한글 입력창 포커스"
+      },
+      {
+        "command": "koreanIme.focusTerminal",
+        "title": "Korean IME: 터미널로 포커스"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "koreanIme.focusInput",
+        "key": "shift+tab",
+        "mac": "shift+tab",
+        "when": "terminalFocus"
+      }
+    ],
+    "configuration": {
+      "title": "Korean IME for Claude",
+      "properties": {
+        "koreanIme.sendNewline": {
+          "type": "boolean",
+          "default": true,
+          "description": "입력 후 자동으로 Enter(줄바꿈)를 전송합니다."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0",
+    "@vscode/vsce": "^3.0.0"
+  }
+}
