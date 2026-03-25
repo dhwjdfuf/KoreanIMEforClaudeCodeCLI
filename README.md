@@ -23,6 +23,8 @@ A dedicated input panel at the bottom of the editor. Type Korean in the panel, p
 
 ## Quick Start
 
+Available on **Cursor** marketplace.
+
 1. Search `jamesoh.korean-ime-terminal` in the Extensions panel and install
 2. Open Claude Code CLI in the terminal
 3. Type Korean in the **Korean IME** panel at the bottom
