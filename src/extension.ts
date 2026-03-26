@@ -87,8 +87,8 @@ class KoreanImeViewProvider implements vscode.WebviewViewProvider {
 		transition: border-color 0.15s ease, box-shadow 0.15s ease;
 	}
 	.input-wrapper:focus-within {
-		border-color: var(--mode-color, #c97a4a);
-		box-shadow: 0 0 0 1px var(--mode-glow, rgba(201, 122, 74, 0.3));
+		border-color: var(--vscode-focusBorder, #007fd4);
+		box-shadow: 0 0 0 1px var(--vscode-focusBorder, #007fd4);
 	}
 	.prompt {
 		padding: 8px 0 8px 12px;
@@ -139,12 +139,6 @@ class KoreanImeViewProvider implements vscode.WebviewViewProvider {
 		font-family: inherit;
 		color: var(--vscode-keybindingLabel-foreground, #999);
 	}
-	#mode-indicator {
-		font-size: 11px;
-		color: var(--mode-color, #c97a4a);
-		text-align: right;
-		padding: 0 4px;
-	}
 </style>
 </head>
 <body>
@@ -158,30 +152,12 @@ class KoreanImeViewProvider implements vscode.WebviewViewProvider {
 			<span><kbd>Shift+Enter</kbd> 줄바꿈</span>
 		</div>
 		<div class="hint-right">
-			<span id="mode-indicator">Ask before edits</span>
-			<span><kbd>Shift+Tab</kbd></span>
+			<span><kbd>Shift+Tab</kbd> 모드 전환</span>
 		</div>
 	</div>
 	<script>
 		const vscode = acquireVsCodeApi();
 		const input = document.getElementById('input');
-		const modeIndicator = document.getElementById('mode-indicator');
-
-		const modes = [
-			{ name: 'ask before edits', color: '#666', glow: 'rgba(102, 102, 102, 0.3)' },
-			{ name: '>> accept edits on', color: '#a989f8', glow: 'rgba(169, 137, 248, 0.3)' },
-			{ name: '|| plan mode on', color: '#6c9f98', glow: 'rgba(108, 159, 152, 0.3)' }
-		];
-		let modeIndex = 0;
-
-		function applyMode() {
-			const mode = modes[modeIndex];
-			document.documentElement.style.setProperty('--mode-color', mode.color);
-			document.documentElement.style.setProperty('--mode-glow', mode.glow);
-			modeIndicator.textContent = mode.name;
-			modeIndicator.style.color = mode.color;
-		}
-		applyMode();
 
 		let focusInterval = null;
 
@@ -203,8 +179,6 @@ class KoreanImeViewProvider implements vscode.WebviewViewProvider {
 			}
 			if (e.key === 'Tab' && e.shiftKey) {
 				e.preventDefault();
-				modeIndex = (modeIndex + 1) % modes.length;
-				applyMode();
 				vscode.postMessage({ type: 'shiftTab' });
 			}
 		});
