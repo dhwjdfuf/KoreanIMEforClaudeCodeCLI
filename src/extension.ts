@@ -19,6 +19,15 @@ class KoreanImeViewProvider implements vscode.WebviewViewProvider {
 		this._disposables.forEach(d => d.dispose());
 	}
 
+	private _refocusPanel() {
+		const refocus = async () => {
+			await vscode.commands.executeCommand('korean-ime-panel.focus');
+		};
+		for (const ms of [50, 200, 500]) {
+			setTimeout(refocus, ms);
+		}
+	}
+
 	public resolveWebviewView(webviewView: vscode.WebviewView) {
 		this._view = webviewView;
 
@@ -35,23 +44,16 @@ class KoreanImeViewProvider implements vscode.WebviewViewProvider {
 					const config = vscode.workspace.getConfiguration('koreanIme');
 					const sendNewline = config.get<boolean>('sendNewline', true);
 					terminal.sendText(message.text, sendNewline);
-					const refocus = async () => {
-						await vscode.commands.executeCommand('korean-ime-panel.focus');
-					};
-					for (const ms of [50, 200, 500]) {
-						setTimeout(refocus, ms);
-					}
+					this._refocusPanel();
 				} else {
 					vscode.window.showWarningMessage('활성화된 터미널이 없습니다.');
 				}
 			} else if (message.type === 'shiftTab') {
 				await vscode.commands.executeCommand('workbench.action.terminal.sendSequence', { text: '\x1b[Z' });
-				const refocus = async () => {
-					await vscode.commands.executeCommand('korean-ime-panel.focus');
-				};
-				for (const ms of [50, 200, 500]) {
-					setTimeout(refocus, ms);
-				}
+				this._refocusPanel();
+			} else if (message.type === 'escape') {
+				await vscode.commands.executeCommand('workbench.action.terminal.sendSequence', { text: '\x1b' });
+				this._refocusPanel();
 			}
 		});
 	}
@@ -180,6 +182,10 @@ class KoreanImeViewProvider implements vscode.WebviewViewProvider {
 			if (e.key === 'Tab' && e.shiftKey) {
 				e.preventDefault();
 				vscode.postMessage({ type: 'shiftTab' });
+			}
+			if (e.key === 'Escape' && !e.isComposing) {
+				e.preventDefault();
+				vscode.postMessage({ type: 'escape' });
 			}
 		});
 

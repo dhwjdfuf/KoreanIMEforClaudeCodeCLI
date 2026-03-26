@@ -17,6 +17,7 @@ A dedicated input panel at the bottom of the editor. Type Korean in the panel, p
 - **Korean Input Panel** — Bottom panel with proper IME composition support
 - **Terminal Integration** — Sends composed text to the active terminal on Enter
 - **Mode Switching** — `Shift+Tab` sends mode cycle command to Claude Code CLI
+- **Interrupt** — `Esc` stops Claude Code CLI response
 - **Multiline Support** — `Shift+Enter` for line breaks
 - **Theme Sync** — Automatically matches terminal background color
 
@@ -38,6 +39,7 @@ Available on **Cursor** marketplace.
 | `Enter` | Send text to terminal |
 | `Shift+Enter` | Insert line break |
 | `Shift+Tab` | Cycle Claude Code CLI mode |
+| `Esc` | Interrupt Claude Code CLI response |
 
 
 ## Settings
