@@ -25,9 +25,11 @@ A dedicated input panel at the bottom of the editor. Type Korean in the panel, p
 Available on **Cursor** marketplace.
 
 1. Search `jamesoh.korean-ime-terminal` in the Extensions panel and install
-2. Open Claude Code CLI in the terminal
-3. Type Korean in the **Korean IME** panel at the bottom
-4. Press `Enter` to send to terminal
+2. The **Korean IME** panel appears in the bottom pane alongside Terminal, Problems, etc.
+3. Drag the panel tab to reposition it wherever you prefer (e.g., next to the terminal)
+4. Open Claude Code CLI in the terminal
+5. Type Korean in the **Korean IME** panel
+6. Press `Enter` to send to terminal
 
 ## Keybindings
 
